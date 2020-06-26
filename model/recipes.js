@@ -13,7 +13,15 @@ function getShoppingList(ID){
     .select("r.name as recipe name", "i.name as ingredient name", "ri.quantity")
 }
 
+function getInstructions(ID){
+  return db("recipes as r")
+  .where("r.id", ID)
+  .join("steps as s", "s.recipe_id", "r.id")
+  .select("s.instructions", "s.step_number") 
+}
+
 module.exports = {
   find,
   getShoppingList,
+  getInstructions,
 }
