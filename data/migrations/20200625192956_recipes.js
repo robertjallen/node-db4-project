@@ -11,6 +11,7 @@ exports.up = async function(knex) {
 
   await knex.schema.createTable('steps', tbl => {
     //foriegn key
+    tbl.increments("id")
     tbl
       .integer("recipe_id")
       .references("id")
@@ -18,9 +19,7 @@ exports.up = async function(knex) {
       .onDelete("SET NULL")
 
     tbl.integer("step_number")
-    tbl.text("instructions")
-    //manuallly setting primary key
-    tbl.primary(["recipe_id"])  
+    tbl.text("instructions") 
   })
 
 
@@ -31,6 +30,7 @@ exports.up = async function(knex) {
 
 
   await knex.schema.createTable('recipe_ingredients', tbl => {
+    tbl.increments("id")
     tbl.integer("recipe_id")
     .references("id")
     .inTable("recipes")
@@ -40,8 +40,6 @@ exports.up = async function(knex) {
     .inTable("ingredients")
 
     tbl.float("quantity")
-
-    tbl.primary(["recipe_id", "ingredient_id"])
 
   })
 };
